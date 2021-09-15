@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+    <ul>
+        {% for movie in movies %}
+        <div style="border: 2px solid black; padding: 15px">
+        <p>title : {{ movie.title }}</p>
+        <p>genre : {{ movie.genre }}</p>
+        <p>description : {{ movie.description }}</p>
+        <p>plus d'info <a href="movie/{{movie.idmovie }}">ici<a></p>
+        </div>
+        {% endfor %}
+    </ul>
+
+{% endblock %}
