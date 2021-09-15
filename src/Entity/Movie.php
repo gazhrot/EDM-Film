@@ -20,6 +20,11 @@ class Movie
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
+    private $id_movie;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
     private $title;
 
     /**
@@ -55,6 +60,18 @@ class Movie
     public function getId(): ?int
     {
         return $this->id;
+    }
+
+    public function getIdMovie(): ?string
+    {
+        return $this->id_movie;
+    }
+
+    public function setIdMovie(?string $id_movie): self
+    {
+        $this->id_movie = $id_movie;
+
+        return $this;
     }
 
     public function getTitle(): ?string

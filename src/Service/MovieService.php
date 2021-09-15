@@ -2,10 +2,20 @@
 // src/Service/MovieService.php
 namespace App\Service;
 
+use App\Entity\Movie;
 use Symfony\Component\DomCrawler\Crawler;
+use Doctrine\ORM\EntityManagerInterface;
 
 class MovieService
 {
+
+    private $movies = [];
+
+    public function __construct(EntityManagerInterface $manager)
+    {
+        $this->manager = $manager;
+    }
+
     public function ParseMovieFromXml($path)
     {
         $movies = [];
@@ -46,7 +56,7 @@ class MovieService
 
         for ($i = 0; $i < count($id); $i++) {
             
-            array_push($movies, [
+            array_push($this->movies, [
                 'id' => $id[$i],
                 'title' => $title[$i],
                 'genre' => $genre[$i],
@@ -57,12 +67,29 @@ class MovieService
                 'rate' => $rate[$i]
             ]);
         }
-
-        $this->ImportMovie($movies);
     }
 
-    public function ImportMovie(Array $movies)
+    public function CreateMovie(Array $data): Movie
     {
+        $movie = (new Movie())
+                     ->setIdMovie($data['id'])
+                     ->setTitle($data['title'])
+                     ->setGenre($data['genre'])
+                     ->setDescription($data['description'])
+                     ->setDirector($data['director'])
+                     ->setYear($data['year'])
+                     ->setRuntime($data['runtime'])
+                     ->setRate($data['rate']);
+
+        return $movie;
+    }
+
+    public function populateDatabase()
+    {
+        foreach($this->movies as $movie) {
+            $this->manager->persist($this->CreateMovie($movie));
+        }
         
+        $this->manager->flush();
     }
 }

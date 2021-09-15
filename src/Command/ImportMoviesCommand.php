@@ -36,6 +36,7 @@ class ImportMoviesCommand extends Command
     	$io = new SymfonyStyle($input, $output);
 
     	$this->movieService->ParseMovieFromXml('C:\Users\Gazh\Desktop\movies.xml');
+    	$this->movieService->populateDatabase();
 
     	$io->success('Import reussi.');
 
