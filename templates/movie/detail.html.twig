@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+    <ul>
+        <div style="border: 2px solid black; padding: 15px">
+            <p>title : {{ movie.title }}</p>
+            <p>genre : {{ movie.genre }}</p>
+            <p>description : {{ movie.description }}</p>
+            <p>director : {{ movie.director }}</p>
+            <p>year : {{ movie.year }}</p>
+            <p>runtime : {{ movie.runtime }}</p>
+            <p>rate : {{ movie.rate }}</p>
+        </div>
+
+        <div>
+            <a href="/movie">retour a la liste des films</a>
+        </div>
+    </ul>
+
+{% endblock %}
